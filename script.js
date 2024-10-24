@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let zMultiplier = 1;
     let radiusVariation = 0.5; // Variation factor for radius
     let zVariation = 0.5; // Variation factor for z-axis
+    const minRadius = 0.3; // Minimum radius to prevent nodes from crowding
 
     // Create the center node
     const centerNode = new THREE.Mesh(
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (level > maxLevel) return;
 
         const baseRadius = 1 * radiusMultiplier; // Initial base radius
-        const radius = baseRadius * (1 - (radiusVariation * level)); // Adjust radius with variation
+        const radius = Math.max(minRadius, baseRadius * Math.pow((1 - radiusVariation), level)); // Adjust radius based on variation
 
         for (let i = 0; i < 6; i++) {
             const angle = (i * Math.PI) / 3; // Angle for spacing nodes
