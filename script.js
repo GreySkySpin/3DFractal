@@ -15,23 +15,70 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     scene.add(centerNode);
 
-    // Use a sine function to create a "tent" effect
-        const z = Math.sin(angle) * 0.5; // Adjust the height as needed
+    // Function to add snowflake clusters
+    function addSnowflakeCluster(center, level, maxLevel) {
+        if (level > maxLevel) return;
 
-    // Add the snowflake cluster
-    const maxLevel = 2; // Adjust for more levels
-    addSnowflakeCluster(centerNode, 1, maxLevel);
+        for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3;
+            const radius = 1 + level * 0.5;
+            const x = center.position.x + radius * Math.cos(angle);
+            const y = center.position.y + radius * Math.sin(angle);
+           // const z = center.position.z + (Math.random() - 0.5); // Random z-offset
 
-    // Camera positioning
-    camera.position.z = 5;
+            const newNode = new THREE.Mesh(
+                new THREE.SphereGeometry(0.1, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+            );
+            newNode.position.set(x, y, z);
+            scene.add(newNode);
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update(); // Only required if controls.enableDamping = true, or if controls.autoRotate = true
-        renderer.render(scene, camera);
+            // Add edges (lines) if desired
+            const geometry = new THREE.BufferGeometry().setFromPoints([center.position, newNode.position]);
+            const material = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+
+            // Recursively add smaller clusters
+            addSnowflakeCluster(newNode, level + 1, maxLevel);
+        }
     }
-    animate();
+
+
+	
+
+	// Add snowflake clusters
+	function addSnowflakeCluster(center, level, maxLevel) {
+		if (level > maxLevel) return;
+
+		for (let i = 0; i < 6; i++) {
+			const angle = (i * Math.PI) / 3; // Angle for spacing nodes
+			const radius = 1 + level * 0.5; // Radius from the center node
+
+			const x = center.position.x + radius * Math.cos(angle);
+			const y = center.position.y + radius * Math.sin(angle);
+			
+			// Keep the z position consistent for tent-like effect
+			const z = 0.5; // Fixed height for all outer nodes
+
+			const newNode = new THREE.Mesh(
+				new THREE.SphereGeometry(0.1, 16, 16),
+				new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+			);
+			newNode.position.set(x, y, z);
+			scene.add(newNode);
+
+			// Add edges (lines) to connect to the center
+			const geometry = new THREE.BufferGeometry().setFromPoints([center.position, newNode.position]);
+			const material = new THREE.LineBasicMaterial({ color: 0xffffff }); // Set color to white
+			const line = new THREE.Line(geometry, material);
+			scene.add(line);
+
+			// Recursively add smaller clusters
+			addSnowflakeCluster(newNode, level + 1, maxLevel);
+		}
+	}
+
 
     // Checkbox functionality
     document.getElementById('toggle-grid-labels').addEventListener('change', function (e) {
