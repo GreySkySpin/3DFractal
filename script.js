@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initial parameters
     let radiusMultiplier = 1;
     let zMultiplier = 1;
+    let radiusVariation = 0.5; // Variation factor for radius
+    let zVariation = 0.5; // Variation factor for z-axis
 
     // Create the center node
     const centerNode = new THREE.Mesh(
@@ -31,13 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (level > maxLevel) return;
 
         const baseRadius = 1 * radiusMultiplier; // Initial base radius
-        const radius = baseRadius / (level + 1); // Reduce radius with level
+        const radius = baseRadius * (1 - (radiusVariation * level)); // Adjust radius with variation
 
         for (let i = 0; i < 6; i++) {
             const angle = (i * Math.PI) / 3; // Angle for spacing nodes
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
-            const z = -0.5 * level * level * zMultiplier; // Adjust z dynamically
+            const z = -0.5 * level * level * zMultiplier * (1 - (zVariation * level)); // Adjust z dynamically
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
@@ -72,6 +74,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('z-factor').addEventListener('input', function (e) {
         zMultiplier = parseFloat(e.target.value);
         document.getElementById('z-value').textContent = zMultiplier;
+        updateScene();
+    });
+
+    document.getElementById('radius-variation').addEventListener('input', function (e) {
+        radiusVariation = parseFloat(e.target.value);
+        document.getElementById('radius-variation-value').textContent = radiusVariation;
+        updateScene();
+    });
+
+    document.getElementById('z-variation').addEventListener('input', function (e) {
+        zVariation = parseFloat(e.target.value);
+        document.getElementById('z-variation-value').textContent = zVariation;
         updateScene();
     });
 
