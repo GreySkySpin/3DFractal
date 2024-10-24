@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
             
-            // Keep the z position consistent for tent-like effect
-            const z = 0.5; // Fixed height for all outer nodes
+            // Position nodes downwards by adjusting the z coordinate
+            const z = -1; // Fixed height for all outer nodes, adjust to change the tent height
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Add initial snowflake clusters
-    addSnowflakeCluster(centerNode, 0, 3); // Start from the center node
+    addSnowflakeCluster(centerNode, 0, 2); // Start from the center node
 
     // Set camera position
     camera.position.z = 5;
