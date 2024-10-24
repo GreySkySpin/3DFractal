@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add edges (lines) if desired
             const geometry = new THREE.BufferGeometry().setFromPoints([center.position, newNode.position]);
-            const material = new THREE.LineBasicMaterial({ color: 0x000000 });
+            const material = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
             const line = new THREE.Line(geometry, material);
             scene.add(line);
 
