@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create the center node
     const centerNode = new THREE.Mesh(
         new THREE.SphereGeometry(0.2, 32, 32),
-        new THREE.MeshBasicMaterial({ color: 0x0000FF })
+        new THREE.MeshBasicMaterial({ color: 0x0000ff })
     );
     scene.add(centerNode);
 
@@ -24,11 +24,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const radius = 1 + level * 0.5;
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
-            const z = center.position.z + (Math.random() - 0.5); // Random z-offset
+           // const z = center.position.z + (Math.random() - 0.5); // Random z-offset
+
+			// Use a sine function to create a "tent" effect
+			const z = Math.sin(angle) * 0.5; // Adjust the height as needed
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
-                new THREE.MeshBasicMaterial({ color: 0x00FF00 })
+                new THREE.MeshBasicMaterial({ color: 0x00ff00 })
             );
             newNode.position.set(x, y, z);
             scene.add(newNode);
