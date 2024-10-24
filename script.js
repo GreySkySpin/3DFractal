@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const radius = 1 + level * 0.5;
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
-           // const z = center.position.z + (Math.random() - 0.5); // Random z-offset
+            const z = center.position.z + (Math.random() - 0.5); // Random z-offset
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
