@@ -26,35 +26,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-// Function to add snowflake clusters
-function addSnowflakeCluster(center, level, maxLevel) {
-    if (level > maxLevel) return;
-
-    const baseRadius = 1 * radiusMultiplier; // Initial base radius
-    const radius = baseRadius / (level + 1); // Reduce radius with level
-
-    for (let i = 0; i < 6; i++) {
-        const angle = (i * Math.PI) / 3; // Angle for spacing nodes
-        const x = center.position.x + radius * Math.cos(angle);
-        const y = center.position.y + radius * Math.sin(angle);
-        const z = -0.5 * level * level * zMultiplier; // Adjust z dynamically
-
-        const newNode = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1, 16, 16),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-        );
-        newNode.position.set(x, y, z);
-        scene.add(newNode);
-
-        const geometry = new THREE.BufferGeometry().setFromPoints([center.position, newNode.position]);
-        const material = new THREE.LineBasicMaterial({ color: 0xffffff });
-        const line = new THREE.Line(geometry, material);
-        scene.add(line);
-
-        // Recursively add smaller clusters
-        addSnowflakeCluster(newNode, level + 1, maxLevel);
+    // Function to add snowflake clusters
+    function addSnowflakeCluster(center, level, maxLevel) {
+        if (level > maxLevel) return;
+    
+        const baseRadius = 1 * radiusMultiplier; // Initial base radius
+        const radius = baseRadius / (level + 1); // Reduce radius with level
+    
+        for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3; // Angle for spacing nodes
+            const x = center.position.x + radius * Math.cos(angle);
+            const y = center.position.y + radius * Math.sin(angle);
+            const z = -0.5 * level * level * zMultiplier; // Adjust z dynamically
+    
+            const newNode = new THREE.Mesh(
+                new THREE.SphereGeometry(0.1, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+            );
+            newNode.position.set(x, y, z);
+            scene.add(newNode);
+    
+            const geometry = new THREE.BufferGeometry().setFromPoints([center.position, newNode.position]);
+            const material = new THREE.LineBasicMaterial({ color: 0xffffff });
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+    
+            // Recursively add smaller clusters
+            addSnowflakeCluster(newNode, level + 1, maxLevel);
+        }
     }
-}
 
     // Function to update the scene when sliders are changed
     function updateScene() {
