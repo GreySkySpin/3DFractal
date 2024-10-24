@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
             
-            // Position nodes downwards by adjusting the z coordinate
-            const z = -1; // Fixed height for all outer nodes, adjust to change the tent height
+            // Adjust z position for tent-like appearance
+            const z = -0.5 * Math.cos(angle); // Fixed height for all outer nodes, adjust to change the tent height
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
