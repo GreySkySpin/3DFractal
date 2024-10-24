@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add OrbitControls for interaction
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-    // Create the center node (blue node)
+    // Create the center node (Blue)
     const centerNode = new THREE.Mesh(
         new THREE.SphereGeometry(0.2, 32, 32),
         new THREE.MeshBasicMaterial({ color: 0x0000ff })
@@ -19,17 +19,20 @@ document.addEventListener("DOMContentLoaded", function () {
     function addSnowflakeCluster(center, level, maxLevel) {
         if (level > maxLevel) return;
 
-        // z-coordinate logic: First-level nodes have the same z as the center node (z = 0)
-        const zBase = (level === 0) ? 0 : -0.5 * (maxLevel - level); // z for first level is 0, deeper levels go downwards
-
         for (let i = 0; i < 6; i++) {
             const angle = (i * Math.PI) / 3; // Angle for spacing nodes
             const radius = 1 + level * 0.5; // Radius from the center node
 
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
-            
-            const z = zBase; // All first-level nodes will share z = 0; subsequent levels are based on their depth
+
+            // Adjust z position based on level (Center node stays higher than outer nodes)
+            let z;
+            if (level === 0) {
+                z = 0; // Center node stays at z=0
+            } else {
+                z = -0.5 * level; // Outer nodes get lower with each level
+            }
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
