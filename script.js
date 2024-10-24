@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create the center node
     const centerNode = new THREE.Mesh(
         new THREE.SphereGeometry(0.2, 32, 32),
-        new THREE.MeshBasicMaterial({ color: 0x0000ff })
+        new THREE.MeshBasicMaterial({ color: 0x999999 })
     );
     scene.add(centerNode);
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
-                new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+                new THREE.MeshBasicMaterial({ color: 0x777777 })
             );
             newNode.position.set(x, y, z);
             scene.add(newNode);
