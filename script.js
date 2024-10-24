@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
            // const z = center.position.z + (Math.random() - 0.5); // Random z-offset
 
 	     // Use a sine function to create a "tent" effect
-	     const z = Math.sin(angle) * 2; // Adjust the height as needed
+	     const z = Math.sin(angle) * 5; // Adjust the height as needed
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
