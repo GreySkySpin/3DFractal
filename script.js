@@ -19,19 +19,21 @@ document.addEventListener("DOMContentLoaded", function () {
     function addSnowflakeCluster(center, level, maxLevel) {
         if (level > maxLevel) return;
 
+        // Adjust radius to group nodes closer together based on level
+        const baseRadius = 1; // Base radius for level 1
+        const radius = baseRadius * (1 - level * 0.15); // Reduce radius as level increases
+
         for (let i = 0; i < 6; i++) {
             const angle = (i * Math.PI) / 3; // Angle for spacing nodes
-            const radius = 1 + level * 0.5; // Radius from the center node
 
+            // Adjust x and y coordinates based on radius
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
 
-            // Adjust z position based on level (increase steepness with level)
-            let z;
-            if (level === 0) {
-                z = 0; // Center node stays at z=0
-            } else {
-                z = -1 * level * level; // Decrease z value more significantly with level
+            // Adjust z position to control how steep the nodes descend
+            let z = -0.5 * level * level; // Quadratic decrease in z with level
+            if (level > 1) {
+                z *= 0.7; // Make z flatten slightly as we move outward
             }
 
             const newNode = new THREE.Mesh(
