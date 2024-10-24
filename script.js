@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (level === 0) {
                 z = 0; // Center node stays at z=0
             } else {
-                z = -1 * level; // Outer nodes get lower with each level
+                z = -2 * level; // Outer nodes get lower with each level
             }
 
             const newNode = new THREE.Mesh(
