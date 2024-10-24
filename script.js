@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const x = center.position.x + radius * Math.cos(angle);
             const y = center.position.y + radius * Math.sin(angle);
 
-            // Adjust z position based on level (Center node stays higher than outer nodes)
+            // Adjust z position based on level (increase steepness with level)
             let z;
             if (level === 0) {
                 z = 0; // Center node stays at z=0
             } else {
-                z = -2 * level; // Outer nodes get lower with each level
+                z = -1 * level * level; // Decrease z value more significantly with level
             }
 
             const newNode = new THREE.Mesh(
