@@ -44,9 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
-	
-
 	// Add snowflake clusters
 	function addSnowflakeCluster(center, level, maxLevel) {
 		if (level > maxLevel) return;
