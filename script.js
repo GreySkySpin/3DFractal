@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (level > maxLevel) return;
 
         // Adjust radius to group nodes closer together based on level
-        const baseRadius = 1; // Base radius for level 1
+        const baseRadius = 2; // Base radius for level 1
         const radius = baseRadius * (1 - level * 0.1); // Reduce radius as level increases
 
         for (let i = 0; i < 6; i++) {
