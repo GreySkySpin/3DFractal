@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const y = center.position.y + radius * Math.sin(angle);
             
             // Adjust z position to create the tent-like effect
-            const z = -0.5 * (level + 3); // Adjust height based on level
+            const z = -1 * (level + 3); // Adjust height based on level
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
