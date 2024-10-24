@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const y = center.position.y + radius * Math.sin(angle);
 
             // Adjust z position to make the outer nodes less steep and higher
-            const z = -0.5 * (level - maxLevel); // Invert the 'steepness' logic
+            const z = -1 * (maxLevel - level); // Invert the 'steepness' logic
 
             const newNode = new THREE.Mesh(
                 new THREE.SphereGeometry(0.1, 16, 16),
